@@ -1,6 +1,19 @@
-export const join = (req, res) => res.send('join');
-export const login = (req, res) => res.send('login');
+export const join = (req, res) => {
+    return res.render('join', { pageTitle: 'Join' });
+};
 
-export const userProfile = (req, res) => res.send('userProfile');
-export const editProfile = (req, res) => res.send('editProfile');
-export const deleteProfile = (req, res) => res.send('deleteProfile');
+export const login = (req, res) => {
+    return res.render('login', { pageTitle: 'Login' });
+};
+
+export const userProfile = (req, res) => {
+    return res.render('userProfile', { pageTitle: 'User Profile' });
+};
+
+export const editProfile = (req, res) => {
+    return res.render('editProfile', { pageTitle: 'Edit Profile' });
+};
+
+export const deleteProfile = (req, res) => {
+    return res.render('deleteProfile', { pageTitle: 'Delete Profile' });
+};

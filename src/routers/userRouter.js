@@ -7,7 +7,7 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get('/:id', userProfile);
+userRouter.get('/:id((\\d+))', userProfile);
 userRouter.get('/edit', editProfile);
 userRouter.get('/delete', deleteProfile);
 

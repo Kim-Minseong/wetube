@@ -11,6 +11,8 @@ const logger = morgan('dev');
 
 // MiddleWares
 app.use(logger);
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
 
 // Router
 app.use('/', globalRouter);
