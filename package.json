@@ -1,0 +1,28 @@
+{
+    "name": "wetube",
+    "version": "1.0.0",
+    "description": "Clone Youtube with vanilla javascript and nodeJS",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon --exec babel-node src/server.js --delay 1.5s"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kim-Minseong/wetube.git"
+    },
+    "author": "Minseong Kim",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Kim-Minseong/wetube/issues"
+    },
+    "homepage": "https://github.com/Kim-Minseong/wetube#readme",
+    "dependencies": {
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/node": "^7.16.0",
+        "@babel/preset-env": "^7.16.4",
+        "nodemon": "^2.0.15"
+    }
+}
