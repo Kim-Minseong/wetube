@@ -13,6 +13,7 @@ const logger = morgan('dev');
 app.use(logger);
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
+app.use(express.urlencoded({ extended: true }));
 
 // Router
 app.use('/', globalRouter);

@@ -1,4 +1,8 @@
 extends layout/base
 
 block content
-    h1 Upload Video
+    h3 Upload Video
+    form(method="POST")
+        input(type="text" placeholder="Title" name="title" id="uploadVideo")
+        input(type="text" placeholder="Description" name="description" id="uploadVideo")
+        input(type="submit" value="Upload Video")

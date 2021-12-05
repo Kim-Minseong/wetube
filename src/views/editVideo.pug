@@ -1,4 +1,7 @@
 extends layout/base
 
 block content
-    h1 Edit Video
+    form(method="POST")
+        input(type="text" placeholder="Title" name="title" value=`${video.title}`)
+        input(type="text" placeholder="Description" name="description" value=`${video.description}`)
+        input(type="submit" value="Edit")
