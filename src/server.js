@@ -1,3 +1,6 @@
+import 'dotenv/config';
+import './db';
+import './models/Video';
 import express from 'express';
 import morgan from 'morgan';
 import globalRouter from './routers/rootRouter';
@@ -21,7 +24,7 @@ app.use('/users', userRouter);
 app.use('/videos', videoRouter);
 
 const handleListening = () => {
-    console.log(`Server listening at http://localhost:${PORT}`);
+    console.log(`✅ Server listening at http://localhost:${PORT}`);
 };
 
 app.listen(PORT, handleListening);
