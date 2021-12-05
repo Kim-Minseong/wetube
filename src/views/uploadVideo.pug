@@ -2,7 +2,10 @@ extends layout/base
 
 block content
     h3 Upload Video
+    if errorMessage 
+        span=errorMessage
     form(method="POST")
-        input(type="text" placeholder="Title" name="title" id="uploadVideo")
-        input(type="text" placeholder="Description" name="description" id="uploadVideo")
+        input(type="text" placeholder="Title" name="title" required)
+        input(type="text" placeholder="Description" name="description" required)
+        input(type="text" placeholder="Hashtags, seperated by comma." name="hashtags" required)
         input(type="submit" value="Upload Video")
