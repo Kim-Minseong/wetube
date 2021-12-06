@@ -33,7 +33,7 @@ export const postUploadVideo = async (req, res) => {
         return res.redirect('/');
     } catch (error) {
         console.log(error);
-        return res.render('uploadVideo', {
+        return res.status(400).render('uploadVideo', {
             pageTitle: 'Upload Video',
             errorMessage: 'Upload Failed, Please check the form.',
         });
@@ -44,7 +44,7 @@ export const watchVideo = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
     if (!video) {
-        return res.render('404', { pageTitle: 'Video not Found.' });
+        return res.status(404).render('404', { pageTitle: 'Video not Found.' });
     }
     return res.render('watchVideo', { pageTitle: video.title, video });
 };
@@ -70,7 +70,7 @@ export const postEditVideo = async (req, res) => {
     } = req;
     const video = await Video.exists({ _id: id });
     if (!video) {
-        return res.render('404', { pageTitle: 'Video not Found.' });
+        return res.status(404).render('404', { pageTitle: 'Video not Found.' });
     }
     await Video.findByIdAndUpdate(id, {
         title,
