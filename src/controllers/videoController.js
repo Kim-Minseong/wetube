@@ -19,17 +19,11 @@ export const postUploadVideo = async (req, res) => {
         await Video.create({
             title,
             description,
-            hashtags: hashtags
-                .split(',')
-                .map((word) => (word.startsWith('#') ? word : `#${word}`)),
-            createdAt,
-            meta: {
-                views,
-                rating,
-            },
+            hashtags: Video.formatHashtags(hashtags),
         });
         return res.redirect('/');
-    } catch {
+    } catch (error) {
+        console.log(error);
         return res.render('uploadVideo', {
             pageTitle: 'Upload Video',
             errorMessage: 'Upload Failed, Please check the form.',
@@ -72,14 +66,16 @@ export const postEditVideo = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags: hashtags
-            .split(',')
-            .map((word) => (word.startsWith('#') ? word : `#${word}`)),
+        hashtags: Video.formatHashtags(hashtags),
     });
 
-    return res.redirect(`/`);
+    return res.redirect(`/videos/${id}`);
 };
 
-export const deleteVideo = (req, res) => {
-    return res.render('deleteVideo', { pageTitle: 'deleteVideo' });
+export const deleteVideo = async (req, res) => {
+    const {
+        params: { id },
+    } = req;
+    await Video.findByIdAndDelete(id);
+    return res.redirect('/');
 };
