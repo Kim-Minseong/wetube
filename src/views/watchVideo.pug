@@ -2,7 +2,8 @@ extends layout/base
 include mixins/video
 
 block content
-    h2=video.title
-    p=video.description
-    h3 #{video.views < 2 ? `${video.views} view` : `${video.views} views`}
+    div 
+        h2=video.title
+        p=video.description
+        small=video.createdAt
     a(href=`${video.id}/edit`) Edit Video &rarr; 
