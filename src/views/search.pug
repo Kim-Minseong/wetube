@@ -1,4 +1,11 @@
 extends layout/base
+include mixins/video.pug
 
 block content
-    h1 Search
+    form
+        input(type="text" placeholder="Search" name="query") 
+        input(type="submit" value="Search")
+
+    
+    each video in videos
+        +video(video)

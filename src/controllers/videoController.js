@@ -1,12 +1,21 @@
 import Video from '../models/Video';
 
 export const home = async (req, res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ createdAt: 'desc' });
     return res.render('home', { pageTitle: 'Home', videos });
 };
 
-export const search = (req, res) => {
-    return res.render('search', { pageTitle: 'Search' });
+export const search = async (req, res) => {
+    const { query } = req.query;
+    let videos = [];
+    if (query) {
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(query, 'i'),
+            },
+        });
+    }
+    return res.render('search', { pageTitle: 'Search', videos });
 };
 
 export const getUploadVideo = (req, res) => {
