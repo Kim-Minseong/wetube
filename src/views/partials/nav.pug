@@ -3,9 +3,15 @@ ul
         a(href="/") Home
     li
         a(href="/search") Search
-    li
-        a(href="/login") Login
-    li
-        a(href="/join") Join
-    li 
-        a(href="/videos/upload") Upload Video
+    if loggedIn
+        li 
+            a(href="/videos/upload") Upload Video
+        li 
+            a(href="#") #{loggedInUser.username}'s profile
+        li 
+            a(href="/logout") Logout 
+    else
+        li
+            a(href="/login") Login
+        li
+            a(href="/join") Join

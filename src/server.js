@@ -3,6 +3,9 @@ import morgan from 'morgan';
 import globalRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
+import session from 'express-session';
+import { localsMiddleware } from './middleWares';
+import MongoStore from 'connect-mongo';
 
 const app = express();
 const logger = morgan('dev');
@@ -12,6 +15,15 @@ app.use(logger);
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 app.use(express.urlencoded({ extended: true }));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+app.use(localsMiddleware);
 
 // Router
 app.use('/', globalRouter);
