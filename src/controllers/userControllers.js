@@ -1,5 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcrypt';
+import fetch from 'node-fetch';
 
 export const getJoin = (req, res) => {
     return res.render('join', { pageTitle: 'Join' });
@@ -78,4 +79,65 @@ export const editProfile = (req, res) => {
 
 export const deleteProfile = (req, res) => {
     return res.render('deleteProfile', { pageTitle: 'Delete Profile' });
+};
+
+// social (github) Login
+
+export const startGithubLogin = (req, res) => {
+    const baseUrl = 'https://github.com/login/oauth/authorize';
+    const config = {
+        client_id: process.env.GIT_CLIENT_ID,
+        scope: 'read:user user:email',
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    return res.redirect(finalUrl);
+};
+
+export const finishGithubLogin = async (req, res) => {
+    const baseUrl = 'https://github.com/login/oauth/access_token';
+    const config = {
+        client_id: process.env.GIT_CLIENT_ID,
+        client_secret: process.env.GIT_CLIENT_SCRET,
+        code: req.query.code,
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    const tokenRequest = await (
+        await fetch(finalUrl, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+    ).json();
+
+    if ('access_token' in tokenRequest) {
+        const { access_token } = tokenRequest;
+        const userRequest = await (
+            await fetch('https://api.github.com/user', {
+                headers: {
+                    Authorization: `token ${access_token}`,
+                },
+            })
+        ).json();
+        const exsistingUser = await User.findOne({ email: userRequest.email });
+        if (exsistingUser) {
+            req.session.loggedIn = true;
+            req.session.user = exsistingUser;
+            return res.redirect('/');
+        } else {
+            const user = await User.create({
+                email: userRequest.email,
+                username: userRequest.login,
+                password: '',
+                socialOnly: true,
+            });
+            req.session.loggedIn = true;
+            req.session.user = user;
+            return res.redirect('/');
+        }
+    } else {
+        return res.status(400).redirect('/login');
+    }
 };
