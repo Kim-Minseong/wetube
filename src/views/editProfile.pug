@@ -6,3 +6,6 @@ block content
         input(type="email" placeholder="Email" name="email" value=loggedInUser.email)
         input(type="text" placeholder="Username" name="username" value=loggedInUser.username)
         input(type="submit" value="Update Profile")
+        hr
+        if !loggedInUser.socialOnly
+            a(href="change-password") Change password &rarr;

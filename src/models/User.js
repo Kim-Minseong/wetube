@@ -9,8 +9,9 @@ const userSchema = new mongoose.Schema({
     socialOnly: { type: Boolean, default: false },
 });
 
-userSchema.pre('save', async function () {
-    this.password = await bcrypt.hash(this.password, 5);
+userSchema.static('hashPassword', async function (password) {
+    const completeHashingPassword = await bcrypt.hash(password, 5);
+    return completeHashingPassword;
 });
 
 const User = mongoose.model('User', userSchema);

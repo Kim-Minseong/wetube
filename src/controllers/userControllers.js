@@ -27,7 +27,7 @@ export const postJoin = async (req, res) => {
         await User.create({
             email,
             username,
-            password,
+            password: await User.hashPassword(password),
         });
         return res.redirect('/login');
     } catch (error) {
@@ -113,6 +113,47 @@ export const postEditProfile = async (req, res) => {
             errorMessage: 'Update Failed',
         });
     }
+};
+
+export const getChangePassword = (req, res) => {
+    const { socialOnly } = req.session.user;
+    if (socialOnly) {
+        return res.redirect('/');
+    }
+    return res.render('changePassword', { pageTitle: 'Change Password' });
+};
+
+export const postChangePassword = async (req, res) => {
+    const {
+        session: {
+            user: { _id, password },
+        },
+        body: { oldPassword, newPassword, newPasswordConfirm },
+    } = req;
+
+    if (newPassword !== newPasswordConfirm) {
+        return res.status(400).render('changePassword', {
+            pageTitle: 'Change Password',
+            errorMessage: 'Password confirm does not match.',
+        });
+    }
+
+    const ok = await bcrypt.compare(oldPassword, password);
+    if (!ok) {
+        return res.status(400).render('changePassword', {
+            pageTitle: 'Change Password',
+            errorMessage: 'Current Password is incorrect.',
+        });
+    }
+
+    const hashPassword = await User.hashPassword(newPassword);
+
+    const user = await User.findById(_id);
+    user.password = hashPassword;
+    req.session.user.password = user.password;
+    console.log(req.session.user);
+
+    res.redirect('/users/edit');
 };
 
 export const deleteProfile = (req, res) => {
