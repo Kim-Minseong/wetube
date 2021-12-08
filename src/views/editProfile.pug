@@ -1,4 +1,8 @@
 extends layout/base
 
 block content
-    h1 Edit Profile
+    h3=errorMessage
+    form(method="POST") 
+        input(type="email" placeholder="Email" name="email" value=loggedInUser.email)
+        input(type="text" placeholder="Username" name="username" value=loggedInUser.username)
+        input(type="submit" value="Update Profile")

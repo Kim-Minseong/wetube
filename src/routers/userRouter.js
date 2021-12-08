@@ -1,17 +1,23 @@
 import express from 'express';
 import {
     deleteProfile,
-    editProfile,
     finishGithubLogin,
+    getEditProfile,
+    postEditProfile,
     startGithubLogin,
     userProfile,
 } from '../controllers/userControllers';
+import { protectorMiddleware, publicOnlyMiddleware } from '../middleWares';
 
 const userRouter = express.Router();
 
 userRouter.get('/:id((\\d+))', userProfile);
-userRouter.get('/edit', editProfile);
-userRouter.get('/delete', deleteProfile);
-userRouter.get('/github/start', startGithubLogin);
-userRouter.get('/github/finish', finishGithubLogin);
+userRouter
+    .route('/edit')
+    .all(protectorMiddleware)
+    .get(getEditProfile)
+    .post(postEditProfile);
+userRouter.get('/delete', protectorMiddleware, deleteProfile);
+userRouter.get('/github/start', publicOnlyMiddleware, startGithubLogin);
+userRouter.get('/github/finish', publicOnlyMiddleware, finishGithubLogin);
 export default userRouter;

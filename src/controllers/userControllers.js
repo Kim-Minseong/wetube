@@ -72,8 +72,47 @@ export const userProfile = (req, res) => {
     return res.render('userProfile', { pageTitle: 'User Profile' });
 };
 
-export const editProfile = (req, res) => {
+export const getEditProfile = async (req, res) => {
     return res.render('editProfile', { pageTitle: 'Edit Profile' });
+};
+
+export const postEditProfile = async (req, res) => {
+    const {
+        session: {
+            user: { _id, email: sessionEmail },
+        },
+        body: { email, username },
+    } = req;
+    try {
+        if (sessionEmail !== email) {
+            const emailExsits = await User.exists({ email });
+            if (emailExsits) {
+                return res.render('editProfile', {
+                    pageTitle: 'Edit Profile',
+                    errorMessage: 'Email already exists',
+                });
+            }
+        }
+
+        const updateUser = await User.findByIdAndUpdate(
+            _id,
+            {
+                email,
+                username,
+            },
+            { new: true }
+        );
+
+        req.session.user = updateUser;
+
+        return res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        return res.render('editProfile', {
+            pageTitle: 'Edit Profile',
+            errorMessage: 'Update Failed',
+        });
+    }
 };
 
 export const deleteProfile = (req, res) => {
