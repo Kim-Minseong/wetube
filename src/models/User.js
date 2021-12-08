@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
+    avatarUrl: { type: String },
     username: { type: String, lowercase: true, required: true },
     password: { type: String, required: false },
     socialOnly: { type: Boolean, default: false },

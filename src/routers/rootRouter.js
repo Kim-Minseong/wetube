@@ -4,6 +4,7 @@ import {
     getLogin,
     postJoin,
     postLogin,
+    logout,
 } from '../controllers/userControllers';
 import { home, search } from '../controllers/videoController';
 
@@ -13,5 +14,6 @@ globalRouter.get('/', home);
 globalRouter.get('/search', search);
 globalRouter.route('/join').get(getJoin).post(postJoin);
 globalRouter.route('/login').get(getLogin).post(postLogin);
+globalRouter.get('/logout', logout);
 
 export default globalRouter;

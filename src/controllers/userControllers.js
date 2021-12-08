@@ -45,7 +45,7 @@ export const getLogin = (req, res) => {
 
 export const postLogin = async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, socialOnly: false });
 
     if (!user) {
         return res.status(400).render('login', {
@@ -64,7 +64,6 @@ export const postLogin = async (req, res) => {
 
     req.session.loggedIn = true;
     req.session.user = user;
-    console.log(req.session);
 
     return res.redirect('/');
 };
@@ -79,6 +78,11 @@ export const editProfile = (req, res) => {
 
 export const deleteProfile = (req, res) => {
     return res.render('deleteProfile', { pageTitle: 'Delete Profile' });
+};
+
+export const logout = (req, res) => {
+    req.session.destroy();
+    return res.redirect('/');
 };
 
 // social (github) Login
@@ -121,22 +125,19 @@ export const finishGithubLogin = async (req, res) => {
                 },
             })
         ).json();
-        const exsistingUser = await User.findOne({ email: userRequest.email });
-        if (exsistingUser) {
-            req.session.loggedIn = true;
-            req.session.user = exsistingUser;
-            return res.redirect('/');
-        } else {
-            const user = await User.create({
+        let user = await User.findOne({ email: userRequest.email });
+        if (!user) {
+            user = await User.create({
                 email: userRequest.email,
+                avatarUrl: userRequest.avatar_url,
                 username: userRequest.login,
                 password: '',
                 socialOnly: true,
             });
-            req.session.loggedIn = true;
-            req.session.user = user;
-            return res.redirect('/');
         }
+        req.session.loggedIn = true;
+        req.session.user = user;
+        return res.redirect('/');
     } else {
         return res.status(400).redirect('/login');
     }
