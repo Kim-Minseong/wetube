@@ -68,11 +68,33 @@ export const postLogin = async (req, res) => {
     return res.redirect('/');
 };
 
-export const userProfile = (req, res) => {
-    return res.render('users/userProfile', { pageTitle: 'User Profile' });
+export const userProfile = async (req, res) => {
+    const {
+        params: { id },
+    } = req;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        res.status(404).render('layout/404', { pageTitle: 'User not found.' });
+    }
+
+    return res.render('users/userProfile', {
+        pageTitle: `${user.username}'s profile`,
+        user,
+    });
 };
 
 export const getEditProfile = async (req, res) => {
+    const {
+        session: { user },
+        params: { id },
+    } = req;
+
+    if (String(user._id) !== String(id)) {
+        return res.redirect('/');
+    }
+
     return res.render('users/editProfile', { pageTitle: 'Edit Profile' });
 };
 

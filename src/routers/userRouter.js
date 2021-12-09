@@ -17,10 +17,10 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get('/:id((\\d+))', userProfile);
+userRouter.get('/:id([0-9a-z]{24})', userProfile);
 
 userRouter
-    .route('/edit')
+    .route('/:id([0-9a-z]{24})/edit')
     .all(protectorMiddleware)
     .get(getEditProfile)
     .post(uploadAvatar.single('avatar'), postEditProfile);
