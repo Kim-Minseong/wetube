@@ -2,6 +2,7 @@ extends ../layout/base
 include ../mixins/video
 
 block content
+    video(src=`/${video.videoUrl}` controls) 
     div 
         h2=video.title
         p=video.description
