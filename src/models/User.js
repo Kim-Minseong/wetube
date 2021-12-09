@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     username: { type: String, lowercase: true, required: true },
     password: { type: String, required: false },
     socialOnly: { type: Boolean, default: false },
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
 });
 
 userSchema.static('hashPassword', async function (password) {
