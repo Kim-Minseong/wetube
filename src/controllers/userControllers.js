@@ -75,7 +75,6 @@ export const userProfile = async (req, res) => {
     } = req;
 
     const user = await User.findById(id).populate('videos');
-    console.log(user);
 
     if (!user) {
         res.status(404).render('layout/404', { pageTitle: 'User not found.' });

@@ -97,7 +97,7 @@ export const postEditVideo = async (req, res) => {
         session: { user },
     } = req;
 
-    const video = await Video.exists({ _id: id });
+    const video = await Video.findById(id);
 
     if (!video) {
         return res

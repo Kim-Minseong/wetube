@@ -1,6 +1,9 @@
 extends layout/base
 include mixins/video
 
+block scripts 
+    script(src="/static/js/main.js" defer)
+
 block content
     h3 Content
         each video in videos

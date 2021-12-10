@@ -119,4 +119,9 @@ dist
 
 .DS_Store
 
+# Avatar and Videos file
 /uploads
+
+
+# webpack output
+/assets
