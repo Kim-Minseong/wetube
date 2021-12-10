@@ -1,17 +1,10 @@
-ul 
-    li
-        a(href="/") Home
-    li
-        a(href="/search") Search
+nav.sidebar
+    a(href="/search") Search
     if loggedIn
-        li 
-            a(href="/videos/upload") Upload Video
-        li 
-            a(href=`/users/${loggedInUser._id}`) My Profile
-        li 
-            a(href="/logout") Logout 
+        a(href="/videos/upload") Upload
+        a(href=`/users/${loggedInUser._id}`) My Profile
+        a(href="/logout") Logout 
     else
-        li
-            a(href="/login") Login
-        li
-            a(href="/join") Join
+        a(href="/login") Login
+        a(href="/join") Join
+    
