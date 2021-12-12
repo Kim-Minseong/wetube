@@ -1,0 +1,24 @@
+.search__form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    margin: 0 auto;
+    box-shadow: $bs;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    input {
+        all: unset;
+        padding: 15px 20px;
+        border-radius: 10px;
+    }
+    button {
+        position: absolute;
+        border: none;
+        background-color: $bg;
+        right: 10px;
+        top: 17px;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+}

@@ -5,8 +5,9 @@ block scripts
     script(src="/static/js/main.js" defer)
 
 block content
-    h3 Content
+    div.video__grid
         each video in videos
             +video(video)
+            
         else
-            li Sorry nothing found
+            span.empty__message No videos found

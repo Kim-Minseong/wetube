@@ -3,13 +3,11 @@ extends ../layout/base
 block content
     if errorMessage
         h3=errorMessage
-    form(method="POST")
+    form(method="POST").default__form 
         input(type="email" placeholder="Email" name="email" required) 
         input(type="password" placeholder="Password" name="password" required)
-        input(type="submit" value="Join")
-        br
-        a(href="/users/github/start") Continue with github
-    hr
-    div
-        span You don't have an account ? 
-        a(href="/join") Create Account now &rarr; 
+        input(type="submit" value="Login")
+    div    
+        include ../partials/social-login
+    div.suggestions
+        a(href="/join") Create Account now !

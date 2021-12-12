@@ -5,14 +5,20 @@
 // Components
 @import './components/header.scss';
 @import './components/nav.scss';
+@import './components/footer.scss';
+@import './components//videos.scss';
+@import './components/shared.scss';
+@import './components/forms.scss';
+@import './components/social-login.scss';
 
 // screens
 @import './screens/home.scss';
+@import './screens/search.scss';
 
 // default
 
 body {
-    margin-top: 130px;
+    margin-top: 200px;
     height: 1000vh;
     background-color: $bg;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -27,6 +33,6 @@ body {
 }
 
 main {
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
 }

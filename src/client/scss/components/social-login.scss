@@ -1,0 +1,26 @@
+.social__title {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.social-login {
+    width: 50%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    box-shadow: $bs;
+    margin-bottom: 100px;
+    a {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .social__btn--github {
+        background-color: #f8f9fb;
+    }
+    .social__btn--kakao {
+        background-color: #fdfcdc;
+    }
+}

@@ -1,0 +1,40 @@
+.empty__message {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.video__grid {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.suggestions {
+    text-align: center;
+    padding-bottom: 50px;
+    a {
+        border-bottom: 1px solid rgb(149, 156, 163);
+    }
+}
+
+.edit__avatar {
+    display: flex;
+    justify-content: center;
+    img {
+        border-radius: 50%;
+    }
+}
+
+.btn {
+    width: 50%;
+    display: flex;
+    margin: 0 auto;
+    box-shadow: $bs;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    a {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+}

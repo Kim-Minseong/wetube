@@ -1,0 +1,24 @@
+.video-mixin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 3%;
+    .video-mixin__thumb {
+        height: 140px;
+        width: 100%;
+        border-radius: 10px;
+        background-color: red;
+    }
+    .video-mixin__data {
+        padding: 5px 15px;
+        .video-mixin__title {
+            display: block;
+            margin-top: 5px;
+        }
+        .video-mixin__meta {
+            margin-top: 5px;
+        }
+    }
+}

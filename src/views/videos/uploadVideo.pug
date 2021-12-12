@@ -1,11 +1,11 @@
 extends ../layout/base
 
 block content
-    h3 Upload Video
     if errorMessage 
         span=errorMessage
-    form(method="POST" enctype="multipart/form-data")
-        label(for="video") Video file 
+    form(method="POST" enctype="multipart/form-data").upload__form.default__form 
+        label(for="video") Find
+        input(type="text" placeholder="Video file" disabled)
         input(type="file" accept="video/*" id="video" name="video" required)
         input(type="text" placeholder="Title" name="title" required)
         input(type="text" placeholder="Description" name="description" required)

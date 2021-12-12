@@ -1,7 +1,7 @@
 extends ../layout/base
 
 block content
-    form(method="POST")
+    form(method="POST").default__form
         input(type="text" placeholder="Title" name="title" value=`${video.title}` required)
         input(type="text" placeholder="Description" name="description" value=`${video.description}` required)
         input(type="text" placeholder="Hashtags, seperated by comma." name="hashtags" value=`${video.hashtags}`)

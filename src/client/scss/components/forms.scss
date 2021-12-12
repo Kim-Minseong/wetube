@@ -1,0 +1,49 @@
+.default__form {
+    width: 40%;
+    margin: 0 auto;
+    box-shadow: $bs;
+    margin-bottom: 75px;
+    position: relative;
+}
+
+input {
+    all: unset;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+input[type='submit'] {
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background-color: #fff0f3;
+    color: #ff8fa3;
+    text-align: center;
+    cursor: pointer;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    padding: 5px 5px;
+    color: #ff8fa3;
+    top: 5px;
+    right: 5px;
+    background-color: #fff0f3;
+    vertical-align: middle;
+    cursor: pointer;
+    height: 30px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+input[type='file'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}

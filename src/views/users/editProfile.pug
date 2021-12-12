@@ -2,13 +2,16 @@ extends ../layout/base
 
 block content
     h3=errorMessage
-    img(src=`/${loggedInUser.avatarUrl}` width="200")
-    form(method="POST" enctype="multipart/form-data") 
-        label(for="avatar") Avatar
+    div.edit__avatar 
+        img(src=`/${loggedInUser.avatarUrl}` width="200")
+    form(method="POST" enctype="multipart/form-data").default__form
+        label(for="avatar") Find
+        input(type="text" placeholder="Upload Avatar" value=`${String(loggedInUser.avatarUrl).substr(0,25)}...` disabled)
         input(type="file" id="avatar" name="avatar" accept="image/*")
         input(type="email" placeholder="Email" name="email" value=loggedInUser.email)
         input(type="text" placeholder="Username" name="username" value=loggedInUser.username)
         input(type="submit" value="Update Profile")
-        hr
-        if !loggedInUser.socialOnly
-            a(href="change-password") Change password &rarr;
+        
+    if !loggedInUser.socialOnly
+        div.btn
+            a(href="change-password") Change password

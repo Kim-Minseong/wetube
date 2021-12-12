@@ -2,6 +2,10 @@ extends ../layout/base
 include ../mixins/video
 
 block content
-    each video in user.videos
-        +video(video)
-    a(href=`${loggedInUser._id}/edit`) Edit profile 
+    div.video__grid
+        each video in user.videos
+            +video(video)
+    if String(user._id) === String(loggedInUser._id)
+        div.btn 
+            a(href=`${loggedInUser._id}/edit`) Edit profile 
+    
