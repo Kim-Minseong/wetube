@@ -6,7 +6,7 @@
     position: relative;
 }
 
-input {
+input:not([type='range']) {
     all: unset;
     box-sizing: border-box;
     padding: 15px 20px;
