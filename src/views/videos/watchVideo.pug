@@ -5,7 +5,7 @@ block scripts
     script(src="/static/js/videoPlayer.js" defer)
 
 block content
-    div#videoContainer
+    div#videoContainer(data-id=video._id)
         video(src=`/${video.videoUrl}`) 
         div#videoControls.videoControls
             div 

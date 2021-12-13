@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import globalRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
+import apiRouter from './routers/apiRouter';
 import session from 'express-session';
 import { localsMiddleware } from './middleWares';
 import MongoStore from 'connect-mongo';
@@ -32,5 +33,6 @@ app.use('/static', express.static(process.cwd() + '/assets'));
 app.use('/', globalRouter);
 app.use('/users', userRouter);
 app.use('/videos', videoRouter);
+app.use('/api', apiRouter);
 
 export default app;
