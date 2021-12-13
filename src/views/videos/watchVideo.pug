@@ -6,19 +6,29 @@ block scripts
 
 block content
     div#videoContainer
-        video(src=`/${video.videoUrl}` width="500") 
-        div#videoControls 
-            button#play Play
-            button#mute Mute
-            input(type="range" min="0" max="1" step="0.1" default="0.5")#volume
+        video(src=`/${video.videoUrl}`) 
+        div#videoControls.videoControls
             div 
-                span#currentTime 00 : 00
-                span    /  
-                span#totalTime 00 : 00
-            div 
-                input(type="range" min="0" value=0 step="1")#timeline
-            div 
-                button#fullScreen Full Screen
+                div.videoControls__time
+                    input(type="range" min="0" value=0 step="1")#timeline
+                    div 
+                        span#currentTime 00 : 00
+                        span    /  
+                        span#totalTime 00 : 00
+                        
+            div.videoControls__sanse
+                div.videoControls__column
+                    div.videoControls__play 
+                        span#play.videoControls__playBtn
+                            i.fas.fa-play
+                    div.videoControls__mute
+                        span#mute.videoControls__muteBtn
+                            i.fas.fa-volume-up
+                        input(type="range" min="0" max="1" step="0.1" default="0.5")#volume
+                div.videoControls__column 
+                    span#fullScreen 
+                        i.fas.fa-expand
+            
     //- div 
     //-     p=video.description
     //-     small=video.createdAt
