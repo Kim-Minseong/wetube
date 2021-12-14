@@ -9,6 +9,8 @@
         height: 140px;
         width: 100%;
         border-radius: 10px;
+        background-size: cover;
+        background-position: center;
     }
     .video-mixin__data {
         padding: 5px 15px;
@@ -21,5 +23,35 @@
             font-size: 14px;
             margin-top: 5px;
         }
+    }
+}
+
+.video__info {
+    margin-top: 10px;
+    .video__info-title {
+        font-size: 22px;
+        padding: 20px 0px;
+    }
+    hr {
+        opacity: 0.5;
+    }
+    a {
+        display: block;
+        width: 30%;
+    }
+
+    .video__info-meta {
+        display: flex;
+        justify-content: space-between;
+    }
+    .video__info__user {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 50%;
+        img {
+            margin-right: 5px;
+        }
+        margin-bottom: 30px;
     }
 }

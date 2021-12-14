@@ -28,7 +28,7 @@ export const getUploadVideo = (req, res) => {
 export const postUploadVideo = async (req, res) => {
     const {
         body: { title, description, hashtags },
-        file: { path: videoUrl },
+        files: { video, thumbnail },
         session: {
             user: { _id },
         },
@@ -38,7 +38,8 @@ export const postUploadVideo = async (req, res) => {
         const newVideo = await Video.create({
             title,
             description,
-            videoUrl,
+            videoUrl: video[0].path,
+            thumbUrl: thumbnail[0].path,
             hashtags: Video.formatHashtags(hashtags),
             owner: _id,
         });
@@ -134,7 +135,7 @@ export const deleteVideo = async (req, res) => {
             .render('layout/404', { pageTitle: 'Video not Found.' });
     }
 
-    if (String(video.owner) !== String(user.id)) {
+    if (String(video.owner) !== String(user._id)) {
         return res.status(403).redirect('/');
     }
 
