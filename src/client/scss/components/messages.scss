@@ -1,0 +1,36 @@
+.message {
+    z-index: 9999;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 200px;
+    padding: 15px;
+    border-radius: 5%;
+    text-align: center;
+    animation: goAway 2s ease-in-out forwards;
+    animation-delay: 2s;
+    &.error {
+        background-color: #800f2f;
+        color: #ffccd5;
+    }
+    &.success {
+        background-color: #ffccd5;
+        color: #ff4d6d;
+    }
+    &.info {
+        background-color: #d8f3dc;
+        color: #40916c;
+    }
+}
+
+@keyframes goAway {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+}

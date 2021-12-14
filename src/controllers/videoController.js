@@ -47,7 +47,7 @@ export const postUploadVideo = async (req, res) => {
         const user = await User.findById(_id);
         user.videos.push(newVideo._id);
         user.save();
-
+        req.flash('success', 'Upload Success!');
         return res.redirect('/');
     } catch (error) {
         console.log(error);
@@ -117,7 +117,7 @@ export const postEditVideo = async (req, res) => {
         description,
         hashtags: Video.formatHashtags(hashtags),
     });
-
+    req.flash('success', 'Change Saved!');
     return res.redirect(`/videos/${id}`);
 };
 
@@ -136,6 +136,7 @@ export const deleteVideo = async (req, res) => {
     }
 
     if (String(video.owner) !== String(user._id)) {
+        req.flash('error', 'Not authorized');
         return res.status(403).redirect('/');
     }
 

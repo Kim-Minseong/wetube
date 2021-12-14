@@ -93,6 +93,7 @@ export const getEditProfile = async (req, res) => {
     } = req;
 
     if (String(user._id) !== String(id)) {
+        req.flash('error', 'Not authorized');
         return res.redirect('/');
     }
 
@@ -144,6 +145,7 @@ export const postEditProfile = async (req, res) => {
 export const getChangePassword = (req, res) => {
     const { socialOnly } = req.session.user;
     if (socialOnly) {
+        req.flash('error', "Can't Change Password");
         return res.redirect('/');
     }
     return res.render('users/changePassword', { pageTitle: 'Change Password' });
@@ -177,7 +179,7 @@ export const postChangePassword = async (req, res) => {
     const user = await User.findById(_id);
     user.password = hashPassword;
     req.session.user.password = user.password;
-
+    req.flash('info', 'Password Update');
     res.redirect('/users/edit');
 };
 
@@ -186,6 +188,7 @@ export const deleteProfile = (req, res) => {
 };
 
 export const logout = (req, res) => {
+    req.flash('info', 'Bye Bye');
     req.session.destroy();
     return res.redirect('/');
 };

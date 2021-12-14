@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import globalRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
+import flash from 'express-flash';
 import apiRouter from './routers/apiRouter';
 import session from 'express-session';
 import { localsMiddleware } from './middleWares';
@@ -24,6 +25,7 @@ app.use(
         saveUninitialized: false,
     })
 );
+app.use(flash());
 app.use(localsMiddleware);
 
 // Router
