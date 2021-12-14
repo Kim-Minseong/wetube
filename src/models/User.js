@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: false },
     socialOnly: { type: Boolean, default: false },
     videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 userSchema.static('hashPassword', async function (password) {

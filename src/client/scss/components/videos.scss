@@ -32,9 +32,7 @@
         font-size: 22px;
         padding: 20px 0px;
     }
-    hr {
-        opacity: 0.5;
-    }
+
     a {
         display: block;
         width: 30%;
@@ -54,4 +52,8 @@
         }
         margin-bottom: 30px;
     }
+}
+
+.video__info-description {
+    margin-bottom: 20px;
 }

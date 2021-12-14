@@ -3,6 +3,7 @@ include ../mixins/video
 
 block scripts
     script(src="/static/js/videoPlayer.js" defer)
+    script(src="/static/js/commentSection.js" defer)
 
 block content
     div#videoContainer(data-id=video._id)
@@ -43,11 +44,21 @@ block content
                         span=video.owner.username
                 
             p.video__info-description=video.description
-            
-    div 
+        hr    
+    
+    if loggedInUser
+        div.video__comments
+            form.video__comment-form#commentForm
+                textarea(cols="30", rows="10", placeholder="Write comment")
+                button Add Comment
+
+
+
 
     if String(video.owner._id) === String(loggedInUser._id)
         div.btn.video__btn
             a(href=`${video.id}/edit`) Edit Video
         div.btn.video__btn.delete
             a(href=`${video.id}/delete`) Delete Video
+
+    
