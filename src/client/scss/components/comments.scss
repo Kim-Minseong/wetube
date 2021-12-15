@@ -1,0 +1,37 @@
+.video__comment-form {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    input {
+        all: unset;
+
+        width: 90%;
+        height: 50px;
+        margin-right: 20px;
+        border-radius: 2%;
+        box-shadow: $bs;
+    }
+    button {
+        all: unset;
+        width: 10%;
+        height: 50px;
+        border-radius: 30%;
+        text-align: center;
+        box-shadow: $bs;
+        cursor: pointer;
+    }
+}
+
+.video__comments {
+    margin-top: 50px;
+    h3 {
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+    li {
+        width: 100%;
+        margin: 0 auto;
+        // background-color: black;
+        padding: 20px;
+    }
+}

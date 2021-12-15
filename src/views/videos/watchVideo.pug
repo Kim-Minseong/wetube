@@ -3,7 +3,8 @@ include ../mixins/video
 
 block scripts
     script(src="/static/js/videoPlayer.js" defer)
-    script(src="/static/js/commentSection.js" defer)
+    if loggedIn
+        script(src="/static/js/commentSection.js" defer)
 
 block content
     div#videoContainer(data-id=video._id)
@@ -39,26 +40,45 @@ block content
             hr
             a(href=`/users/${video.owner._id}`) 
                 div.video__info__user 
-                    img(src=`/${video.owner.avatarUrl}`).video__info-avatar
+                    if video.owner.avatarUrl
+                        img(src=`/${video.owner.avatarUrl}`).video__info-avatar
+                    else
+                        div.video__info-avatar
                     div
                         span=video.owner.username
+            hr
                 
             p.video__info-description=video.description
-        hr    
+        
     
     if loggedInUser
-        div.video__comments
+        div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="Write comment")
-                button Add Comment
+                input(type="text", placeholder="Write comment this")
+                button Send
+
+
+    div.video__comments
+        h3 Comments
+        ul 
+            for comment in video.comments.reverse()
+                li(data-id=comment._id)
+                    span=comment.text
+                    if String(loggedInUser._id) === String(comment.writer)
+                        button delete
+                
+            
+            
 
 
 
-
-    if String(video.owner._id) === String(loggedInUser._id)
-        div.btn.video__btn
-            a(href=`${video.id}/edit`) Edit Video
-        div.btn.video__btn.delete
-            a(href=`${video.id}/delete`) Delete Video
+    if loggedInUser
+        if String(video.owner._id) === String(loggedInUser._id)
+            div.btn.video__btn
+                a(href=`${video.id}/edit`) Edit Video
+            div.btn.video__btn.delete
+                a(href=`${video.id}/delete`) Delete Video
+    else
+        div
 
     

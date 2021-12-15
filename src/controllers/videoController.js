@@ -1,5 +1,6 @@
 import Video from '../models/Video';
 import User from '../models/User';
+import Comment from '../models/Comment';
 
 export const home = async (req, res) => {
     const videos = await Video.find({})
@@ -60,12 +61,16 @@ export const postUploadVideo = async (req, res) => {
 
 export const watchVideo = async (req, res) => {
     const { id } = req.params;
-    const video = await Video.findById(id).populate('owner');
+    const video = await Video.findById(id)
+        .populate('owner')
+        .populate('comments');
+
     if (!video) {
         return res
             .status(404)
             .render('layout/404', { pageTitle: 'Video not Found.' });
     }
+
     return res.render('videos/watchVideo', {
         pageTitle: video.title,
         video,
@@ -153,4 +158,53 @@ export const registerView = async (req, res) => {
     video.meta.views = video.meta.views + 1;
     await video.save();
     return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+    const {
+        params: { id },
+        body: { text },
+        session: {
+            user: { _id },
+        },
+    } = req;
+
+    const video = await Video.findById(id);
+    const user = await User.findById(_id);
+
+    if (!video) {
+        req.flash('error', 'Video Not Found');
+        return res.setStatus(404);
+    }
+
+    const comment = await Comment.create({
+        text,
+        writer: _id,
+        video: id,
+    });
+
+    user.comments.push(comment._id);
+    video.comments.push(comment._id);
+    await user.save();
+    await video.save();
+
+    return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+    const {
+        params: { id },
+        session: {
+            user: { _id },
+        },
+    } = req;
+
+    const comment = await Comment.findById(id);
+
+    if (String(comment.writer) === String(_id)) {
+        await Comment.findByIdAndDelete(id);
+        return res.sendStatus(202);
+    } else {
+        return res.sendStatus(400);
+    }
 };

@@ -17,6 +17,7 @@ app.use(logger);
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
