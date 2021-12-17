@@ -20,7 +20,6 @@ module.exports = {
         clean: true,
     },
     mode: 'development',
-    watch: true,
     module: {
         rules: [
             {
