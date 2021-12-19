@@ -10,7 +10,7 @@ const s3 = new aws.S3({
 });
 
 const multerUploader = multerS3({
-    s3,
+    s3: s3,
     bucket: 'wetube-alwaysineeedyou',
     acl: 'public-read',
 });
