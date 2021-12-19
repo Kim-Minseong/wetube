@@ -3,7 +3,10 @@ extends ../layout/base
 block content
     h3=errorMessage
     div.edit__avatar 
-        img(src=`/${loggedInUser.avatarUrl}` width="200")
+        if loggedInUser.socialOnly
+            img(src=loggedInUser.avatarUrl width="200")
+        else 
+            img(src=`/${loggedInUser.avatarUrl}` width="200")
     form(method="POST" enctype="multipart/form-data").default__form
         label(for="avatar") Find
         input(type="text" placeholder="Upload Avatar" value=`${String(loggedInUser.avatarUrl).substr(0,25)}...` disabled)
