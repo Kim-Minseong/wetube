@@ -1,4 +1,19 @@
 import multer from 'multer';
+import multerS3 from 'multer-s3';
+import aws from 'aws-sdk';
+
+const s3 = new aws.S3({
+    credentials: {
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET,
+    },
+});
+
+const multerUploader = multerS3({
+    s3,
+    bucket: 'wetube-alwaysineeedyou',
+    acl: 'public-read',
+});
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = 'Wetube';
@@ -27,5 +42,11 @@ export const publicOnlyMiddleware = (req, res, next) => {
     }
 };
 
-export const uploadAvatar = multer({ dest: 'uploads/avatar' });
-export const uploadVideo = multer({ dest: 'uploads/videos' });
+export const uploadAvatar = multer({
+    dest: 'uploads/avatar',
+    storage: multerUploader,
+});
+export const uploadVideo = multer({
+    dest: 'uploads/videos',
+    storage: multerUploader,
+});
