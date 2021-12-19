@@ -9,11 +9,19 @@ const s3 = new aws.S3({
     },
 });
 
-const multerUploader = multerS3({
+const s3ImageUploader = multerS3({
     s3: s3,
-    bucket: 'alwaysineeedyou-wetube',
+    bucket: 'alwaysineeedyou-wetube/images',
     acl: 'public-read',
 });
+
+const s3VideoUploader = multerS3({
+    s3: s3,
+    bucket: 'alwaysineeedyou-wetube/videos',
+    acl: 'public-read',
+});
+
+const isHeroku = process.env.NODE_ENV === 'production';
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = 'Wetube';
@@ -44,9 +52,9 @@ export const publicOnlyMiddleware = (req, res, next) => {
 
 export const uploadAvatar = multer({
     dest: 'uploads/avatar',
-    storage: multerUploader,
+    storage: isHeroku ? s3ImageUploader : undefined,
 });
 export const uploadVideo = multer({
     dest: 'uploads/videos',
-    storage: multerUploader,
+    storage: isHeroku ? s3VideoUploader : undefined,
 });

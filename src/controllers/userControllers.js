@@ -119,11 +119,15 @@ export const postEditProfile = async (req, res) => {
                 });
             }
         }
-
+        const isHeroku = process.env.NODE_ENV === 'production';
         const updateUser = await User.findByIdAndUpdate(
             _id,
             {
-                avatarUrl: !file ? avatarUrl : file.location,
+                avatarUrl: file
+                    ? isHeroku
+                        ? file.location
+                        : file.path
+                    : avatarUrl,
                 email,
                 username,
             },
